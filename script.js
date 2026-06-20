@@ -11,18 +11,23 @@ const todoArray = JSON.parse(localStorage.getItem('todoList')) || [];
                 const html = `
                 <div> ${name} </div>
                 <div> ${date} </div> 
-                <button class="todo-delete-button" onclick="
-                todoArray.splice(${i}, 1);
-                localStorage.setItem('todoList', JSON.stringify(todoArray));
-                renderTodoList();
-                ">Delete</button> `;
+                <button class="todo-delete-button js-todoDelete-button">Delete</button> `;
 
                 todoHTML += html;
             });
-            
+
             document.querySelector('.todo-list')
             .innerHTML = todoHTML;
 
+            document.querySelectorAll('.js-todoDelete-button')
+            .forEach((deleteButton, index) => {
+                deleteButton.addEventListener('click', () => {
+                    todoArray.splice(index, 1);
+                    renderTodoList();
+                });
+            });
+            
+            
             localStorage.setItem('todoList', JSON.stringify(todoArray));
         }
 
@@ -43,3 +48,8 @@ const todoArray = JSON.parse(localStorage.getItem('todoList')) || [];
             }
             renderTodoList();
         }
+
+        document.querySelector('.add-button')
+        .addEventListener('click', () => {
+            takeInput();
+        })
