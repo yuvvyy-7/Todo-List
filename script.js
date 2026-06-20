@@ -6,8 +6,7 @@ const todoArray = JSON.parse(localStorage.getItem('todoList')) || [];
             
             let todoHTML = '';
 
-            for(let i=0; i < todoArray.length; i++){
-                const todoObject = todoArray[i];
+            todoArray.forEach(function(todoObject, i){
                 const { name, date } = todoObject;
                 const html = `
                 <div> ${name} </div>
@@ -19,8 +18,8 @@ const todoArray = JSON.parse(localStorage.getItem('todoList')) || [];
                 ">Delete</button> `;
 
                 todoHTML += html;
-            }
-
+            });
+            
             document.querySelector('.todo-list')
             .innerHTML = todoHTML;
 
